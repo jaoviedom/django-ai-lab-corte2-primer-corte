@@ -1,5 +1,5 @@
 from django import forms
-from .models import Producto
+from .models import Producto, Cliente
 
 class ProductoForm(forms.ModelForm):
     class Meta:
@@ -25,3 +25,16 @@ class ProductoForm(forms.ModelForm):
         if precio is not None and precio <= 0:
             raise forms.ValidationError("El precio debe ser mayor que cero.")
         return precio
+
+class ClienteForm(forms.ModelForm):
+    class Meta:
+        model = Cliente
+        fields = ["nombre", "email", "activo"]
+        widgets = {
+            "nombre": forms.TextInput(attrs={
+                "placeholder": "Nombre completo"
+            }),
+            "email": forms.EmailInput(attrs={
+                "placeholder": "Correo electrónico"
+            }),
+        }
